@@ -2,7 +2,49 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Calendar" Height="300" Width="300">
-    <Grid>
-        
-    </Grid>
+﻿        
+        <DockPanel>
+        <ToolBar DockPanel.Dock="Top">
+            <Label>Title</Label>
+            <TextBox MinWidth="80"/>
+            <Button >Filter</Button>
+            <Button >Delete filter</Button>
+            <ComboBox SelectedIndex="0">
+                <ComboBoxItem >Without sort</ComboBoxItem>
+                <ComboBoxItem >Sort in alphabetical order</ComboBoxItem>
+            </ComboBox>
+            <ComboBox SelectedIndex="0">
+                <ComboBoxItem >Whithout group</ComboBoxItem>
+                <ComboBoxItem >Group by director</ComboBoxItem>
+            </ComboBox>
+        </ToolBar>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Name="BaseOfAllMovies" Margin="10" Padding="20 10">ALL MOVIES</Button>
+            <Button Name="MyWatchedMovies" Margin="10" Padding="20 10" Grid.Row="1">MY MOVIES</Button>
+            <Button Name="MoviesWishes" Margin="10" Padding="20 10" Grid.Row="2">WISHES</Button>
+            <Button Name="MyCalendar" Margin="10" Padding="20 10" Grid.Row="3">CALENDAR</Button>
+            <Button Name="Cinema" Margin="10" Padding="20 10" Grid.Row="4">CINEMA</Button>
+            
+            <GroupBox Header="Calendar" Grid.Column="1" Grid.RowSpan="4" Margin="5 0">
+                <Calendar Margin="20"></Calendar>
+            </GroupBox>
+
+            <GroupBox Header="Information" Grid.Column="1" Grid.Row="4" Grid.RowSpan="2" Margin="5 0">
+                <Label></Label>
+            </GroupBox>
+
+        </Grid>
+    </DockPanel>
 </Window>
