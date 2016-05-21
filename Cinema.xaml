@@ -19,7 +19,7 @@
                 <ComboBoxItem Name="ComboBoxItemGroupingFirstLetter"
                               Selected="ComboBoxItemGrouping_OnSelected" >Group by first letter</ComboBoxItem>
                 <ComboBoxItem Name="ComboBoxItemGroupingGenre"
-                              Selected="ComboBoxItemGroupingGenre_OnSelected">Group by negre</ComboBoxItem>
+                              Selected="ComboBoxItemGroupingGenre_OnSelected">Group by genre</ComboBoxItem>
             </ComboBox>
         </ToolBar>
 
