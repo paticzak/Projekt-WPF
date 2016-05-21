@@ -77,32 +77,36 @@ namespace KinomaniakInterfejsPart1wpf
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         private void ComboBoxItemSort_OnSelected(object sender, RoutedEventArgs e)
         {
             Movies.SortDescriptions.Add(new SortDescription("title", ListSortDirection.Ascending));
         }
 
-        private void ComboBoxItemGrouping_OnSelected(object sender, RoutedEventArgs e)
+         private void ComboBoxItemGrouping_OnSelected(object sender, RoutedEventArgs e)
         {
-            View?.GroupDescriptions?.Clear();
-            View?.SortDescriptions.Add(new SortDescription("title", ListSortDirection.Ascending));
+            View.GroupDescriptions.Clear();
+            View.SortDescriptions.Add(new SortDescription("title", ListSortDirection.Ascending));
             FirstLetterConverter grouper = new FirstLetterConverter();
-            View?.GroupDescriptions?.Add(new PropertyGroupDescription("title", grouper));
+            View.GroupDescriptions.Add(new PropertyGroupDescription("title", grouper));
         }
 
         private void ComboBoxItemWithoutGrouping_OnSelected(object sender, RoutedEventArgs e)
         {
-            View?.GroupDescriptions?.Clear();
+            if(View != null)
+            {
+                View.GroupDescriptions.Clear();
+            }
+            
         }
 
         private void ComboBoxItemGroupingGenre_OnSelected(object sender, RoutedEventArgs e)
         {
-            View?.GroupDescriptions?.Clear();
-            View?.SortDescriptions.Add(new SortDescription("title", ListSortDirection.Ascending));
+            View.GroupDescriptions.Clear();
+            View.SortDescriptions.Add(new SortDescription("title", ListSortDirection.Ascending));
             GenreGrouper grouper = new GenreGrouper();
-            View?.GroupDescriptions?.Add(new PropertyGroupDescription("genresString", grouper));
+            View.GroupDescriptions.Add(new PropertyGroupDescription("genresString", grouper));
         }
     }
 }
