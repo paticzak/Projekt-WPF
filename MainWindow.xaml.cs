@@ -27,14 +27,13 @@ namespace KinomaniakInterfejsPart1wpf
     public partial class MainWindow : Window
     {
         public List<Movie> Movies { get; set; }
-        public List<Genre> Genres { get; set; } 
 
         public MainWindow()
         {
             InitializeComponent();
-            Task.Run(GetGenres).Wait();
-            Task.Run(GetMovies).Wait();
-            ConvertGenresIdToNames();
+            Movies = MoviesFromFile.GetMovies(); // Pobieranie filmów z pliku
+           // Task.Run(GetMovies).Wait(); // Pobieranie filmów z Tmdb
+            Task.Run(GetConverterMovies).Wait(); // gatunki filmów są w id, tutaj zamiana na stringi
             Cinema cinema = new Cinema(Movies);
             cinema.Show();
             this.Close();
@@ -45,23 +44,11 @@ namespace KinomaniakInterfejsPart1wpf
             Movies = await TmdbDownloader.DownloadMovies();
         }
 
-        public async Task GetGenres()
+        public async Task GetConverterMovies()
         {
-            Genres = await TmdbDownloader.DownloadGenres();
+            Movies = await GenreConverter.ConvertGenresIdToNames(Movies);
         }
 
-        public void ConvertGenresIdToNames()
-        {
-            foreach (Movie movie in Movies)
-            {
-                foreach (int t1 in movie.genre_ids)
-                {
-                    foreach (Genre t in Genres.Where(t => t1 == t.id))
-                    {
-                        movie.genres.Add(t.name);
-                    }
-                }
-            }
-        }
+
     }
 }

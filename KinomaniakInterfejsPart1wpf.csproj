@@ -82,7 +82,11 @@
       <DependentUpon>Cinema.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\Genre.cs" />
+    <Compile Include="Classes\GenreConverter.cs" />
+    <Compile Include="Classes\FirstLetterConverter.cs" />
+    <Compile Include="Classes\GenreGrouper.cs" />
     <Compile Include="Classes\Movie.cs" />
+    <Compile Include="Classes\MoviesFromFile.cs" />
     <Compile Include="Classes\RootObjectGenres.cs" />
     <Compile Include="Classes\TmdbDownloader.cs" />
     <Compile Include="Classes\RootObjectMovies.cs" />

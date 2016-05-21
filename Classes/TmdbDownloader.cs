@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -21,7 +22,7 @@ namespace KinomaniakInterfejsPart1wpf.Classes
             {
                 httpClient.DefaultRequestHeaders.TryAddWithoutValidation("accept", "application/json");
 
-                for (int i = 1; i < 10; i++)
+                for (int i = 96; i < 101; i++)
                 {
                     using (
                         var response =
@@ -33,6 +34,11 @@ namespace KinomaniakInterfejsPart1wpf.Classes
                         string responseData = await response.Content.ReadAsStringAsync();
                         var model = JsonConvert.DeserializeObject<RootObjectMovies>(responseData);
                         movies.AddRange(model.results);
+                        //using (StreamWriter sw = File.AppendText(@"C:\Users\Kamil\Desktop\Studia\WPF\Projekt\Projekt-WPF\movies.txt"))
+                        //{
+                        //    sw.Write(responseData + ",");
+                        //}  
+                        // Zapisywanie filmów do pliku
                     }
                 }
             }
