@@ -9,6 +9,7 @@ namespace KinomaniakInterfejsPart1wpf.Classes
 {
     class GenreGrouper : IValueConverter
     {
+
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             string s = value as string;

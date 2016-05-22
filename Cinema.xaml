@@ -2,8 +2,79 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:KinomaniakInterfejsPart1wpf"
+        xmlns:classes="clr-namespace:KinomaniakInterfejsPart1wpf.Classes"
+        WindowStartupLocation="CenterScreen"
         Title="Cinema" Height="480" Width="825"
         >
+    <Window.CommandBindings>
+        <CommandBinding Command="classes:CustomCommands.AddToWishes" Executed="AddToWishesCommandExecute"
+                        CanExecute="AddToWishesCommandCanExecute"></CommandBinding>
+        <CommandBinding Command="classes:CustomCommands.DeleteMovie" Executed="DeleteMovieCommandExecute"
+                        CanExecute="DeleteMovieCommandCanExecute"></CommandBinding>
+    </Window.CommandBindings>
+    <Window.Resources>
+        
+        <Style TargetType="{x:Type ListBoxItem}" x:Key="ListBoxAnimation">
+                <EventSetter Event="MouseDoubleClick" Handler="ListBoxItem_MouseDoubleClick"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border Name="Border">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background"
+                                            Value="DeepSkyBlue" />
+                                <Setter TargetName="Border"
+                                            Property="TextBlock.Foreground" Value="White" />
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard >
+                                            <DoubleAnimation Storyboard.TargetProperty="FontSize"
+                                                                 Duration="0:0:0.25" To="25"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard >
+                                            <DoubleAnimation Storyboard.TargetProperty="FontSize"
+                                                                 BeginTime="0:0:0.0" Duration="0:0:0.5"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard >
+                                            <DoubleAnimation Storyboard.TargetProperty="FontSize"
+                                                                 Duration="0:0:0.25" To="25"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard >
+                                            <DoubleAnimation Storyboard.TargetProperty="FontSize"
+                                                                 BeginTime="0:0:0.0" Duration="0:0:0.5"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                                <Setter TargetName="Border" Property="Background"
+                                            Value="Blue" />
+                                <Setter TargetName="Border"
+                                            Property="TextBlock.Foreground" Value="White" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+        
+    </Window.Resources>
     <DockPanel>
         <ToolBar DockPanel.Dock="Top">
             <Label>Title</Label>
@@ -36,7 +107,7 @@
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/> 
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Row="0" Grid.RowSpan="5" Background="CadetBlue" Margin="5">
 
@@ -49,12 +120,12 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <Button Name="BaseOfAllMovies" Margin="10" Padding="20 10" Grid.Row="0">ALL MOVIES</Button>
+                <Button Name="BaseOfAllMovies" Margin="10" Padding="20 10" Grid.Row="0" Click="BaseOfAllMovies_Click">ALL MOVIES</Button>
                 <Button Name="MyWatchedMovies" Margin="10" Padding="20 10" Grid.Row="1">MY MOVIES</Button>
-                <Button Name="MoviesWishes" Margin="10" Padding="20 10" Grid.Row="2">WISHES</Button>
+                <Button Name="MoviesWishes" Margin="10" Padding="20 10" Grid.Row="2" Click="MoviesWishes_Click">WISHES</Button>
                 <Button Name="AddMovie" Margin="10" Padding="20 10" Grid.Row="3">ADD MOVIE</Button>
                 <Button Name="MyCalendar" Margin="10" Padding="20 10" Grid.Row="4">CALENDAR</Button>
-                <Button Name="ButtonCinema" Margin="10" Padding="20 10" Grid.Row="5">CINEMA</Button>
+                <Button Name="ButtonCinema" Margin="10" Padding="20 10" Grid.Row="5" Click="ButtonCinema_Click">CINEMA</Button>
                 <Grid.Style>
                     <Style>
                         <Style.Resources>
@@ -69,12 +140,10 @@
 
             <GroupBox Grid.Column="1" Grid.Row="0"  Grid.ColumnSpan="2" Grid.RowSpan="5" Margin="10 10 10 0" Background="Gainsboro" 
                           ScrollViewer.VerticalScrollBarVisibility="Visible">
-                <ListBox Name="ListBoxMovies" ItemsSource="{Binding Movies, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ListBoxMovies_SelectionChanged">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-                            <EventSetter Event="MouseDoubleClick" Handler="ListBoxItem_MouseDoubleClick"/>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
+                <ListBox Name="ListBoxMovies" ItemsSource="{Binding Movies, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                         SelectionChanged="ListBoxMovies_SelectionChanged"  ItemContainerStyle="{StaticResource ListBoxAnimation}"
+                        >
+                  
                     <ListBox.GroupStyle>
                         <GroupStyle>
                             <GroupStyle.HeaderTemplate>
@@ -85,6 +154,13 @@
                             </GroupStyle.HeaderTemplate>
                         </GroupStyle>
                     </ListBox.GroupStyle>
+                    <ListBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Name="MenuItemWishes" Header="Add to wishes" Command="classes:CustomCommands.AddToWishes" ></MenuItem>
+                            <MenuItem Name="MenuItemDelete" Header="Delete" Command="classes:CustomCommands.DeleteMovie"></MenuItem>
+                        </ContextMenu>
+                    </ListBox.ContextMenu>
+
                 </ListBox>
             </GroupBox>
 
@@ -102,7 +178,7 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    
+
                     <Label Padding="5" Margin="5">Title:</Label>
                     <Label Content="{Binding original_title}" Grid.Column="1" Margin="5" Padding="15,0"></Label>
                     <Label Padding="5" Margin="5" Grid.Row="1">Language:</Label>

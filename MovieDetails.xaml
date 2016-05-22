@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KinomaniakInterfejsPart1wpf"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="MovieDetails" Height="480" Width="825">
     <Window.Resources>
         <LinearGradientBrush x:Key="GrayBlueGardientBrush"  

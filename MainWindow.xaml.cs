@@ -31,24 +31,24 @@ namespace KinomaniakInterfejsPart1wpf
         public MainWindow()
         {
             InitializeComponent();
-            Movies = MoviesFromFile.GetMovies(); // Pobieranie filmów z pliku
-           // Task.Run(GetMovies).Wait(); // Pobieranie filmów z Tmdb
-            Task.Run(GetConverterMovies).Wait(); // gatunki filmów są w id, tutaj zamiana na stringi
-            Cinema cinema = new Cinema(Movies);
-            cinema.Show();
+            Movies = FileOperations.GetMovies();
+            //Task.Run(() => DownloadUpcomingMovies()).Wait();
+            new Cinema(Movies).Show();
             this.Close();
         }
 
-        public async Task GetMovies()
+
+
+        private void MoviesWishes_Click(object sender, RoutedEventArgs e)
         {
-            Movies = await TmdbDownloader.DownloadMovies();
+            new Cinema(FileOperations.GetMoviesToWatch()).Show();
+            this.Close();
+            
         }
 
-        public async Task GetConverterMovies()
+        public async void DownloadUpcomingMovies()
         {
-            Movies = await GenreConverter.ConvertGenresIdToNames(Movies);
+           Movies= await TmdbDownloader.DownloadMovies();
         }
-
-
     }
 }

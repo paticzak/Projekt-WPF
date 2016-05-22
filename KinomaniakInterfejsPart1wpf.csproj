@@ -59,6 +59,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="ActualRepertuar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Calendar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -71,6 +75,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="ActualRepertuar.xaml.cs">
+      <DependentUpon>ActualRepertuar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -81,15 +88,16 @@
     <Compile Include="Cinema.xaml.cs">
       <DependentUpon>Cinema.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\CustomCommands.cs" />
     <Compile Include="Classes\Genre.cs" />
     <Compile Include="Classes\GenreConverter.cs" />
     <Compile Include="Classes\FirstLetterConverter.cs" />
     <Compile Include="Classes\GenreGrouper.cs" />
     <Compile Include="Classes\Movie.cs" />
-    <Compile Include="Classes\MoviesFromFile.cs" />
-    <Compile Include="Classes\RootObjectGenres.cs" />
+    <Compile Include="Classes\FileOperations.cs" />
+    <Compile Include="JsonClasses\RootObjectGenres.cs" />
     <Compile Include="Classes\TmdbDownloader.cs" />
-    <Compile Include="Classes\RootObjectMovies.cs" />
+    <Compile Include="JsonClasses\RootObjectMovies.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -121,7 +129,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

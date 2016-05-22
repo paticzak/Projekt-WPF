@@ -8,9 +8,8 @@ namespace KinomaniakInterfejsPart1wpf.Classes
 {
     class GenreConverter
     {
-        public static async Task<List<Movie>> ConvertGenresIdToNames(List<Movie> movies )
+        public static List<Movie> ConvertGenresIdToNames(List<Movie> movies, List<Genre> genres  )
         {
-            var genres = await TmdbDownloader.DownloadGenres();
             foreach (Movie movie in movies)
             {
                 foreach (int t1 in movie.genre_ids)
