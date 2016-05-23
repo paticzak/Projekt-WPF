@@ -3,20 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="480" Width="825">
     <DockPanel>
-        <ToolBar DockPanel.Dock="Top">
-            <Label>Title</Label>
-            <TextBox MinWidth="80"/>
-            <Button >Filter</Button>
-            <Button >Delete filter</Button>
-            <ComboBox SelectedIndex="0">
-                <ComboBoxItem >Without sort</ComboBoxItem>
-                <ComboBoxItem >Sort in alphabetical order</ComboBoxItem>
-            </ComboBox>
-            <ComboBox SelectedIndex="0">
-                <ComboBoxItem >Whithout group</ComboBoxItem>
-                <ComboBoxItem >Group by director</ComboBoxItem>
-            </ComboBox>
-        </ToolBar>
 
         <Grid>
             <Grid.RowDefinitions>
@@ -31,7 +17,6 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition/>
-                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid Grid.Row="0" Grid.RowSpan="5" Background="CadetBlue" Margin="5">
 
@@ -44,13 +29,13 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
- 
-                <Button Name="BaseOfAllMovies" Margin="10" Padding="20 10" Grid.Row="0">ALL MOVIES</Button>
-                <Button Name="MyWatchedMovies" Margin="10" Padding="20 10" Grid.Row="1">MY MOVIES</Button>
+
+                <Button Name="BaseOfAllMovies" Margin="10" Padding="20 10" Grid.Row="0" Click="BaseOfAllMovies_OnClick">ALL MOVIES</Button>
+                <Button Name="MyWatchedMovies" Margin="10" Padding="20 10" Grid.Row="1" Click="MyWatchedMovies_OnClick">MY MOVIES</Button>
                 <Button Name="MoviesWishes" Margin="10" Padding="20 10" Grid.Row="2" Click="MoviesWishes_Click">WISHES</Button>
                 <Button Name="AddMovie" Margin="10" Padding="20 10" Grid.Row="3">ADD MOVIE</Button>
-                <Button Name="MyCalendar" Margin="10" Padding="20 10" Grid.Row="4">CALENDAR</Button>
-                <Button Name="Cinema" Margin="10" Padding="20 10" Grid.Row="5">CINEMA</Button>
+                <Button Name="MyCalendar" Margin="10" Padding="20 10" Grid.Row="4" Click="MyCalendar_Click">CALENDAR</Button>
+                <Button Name="Cinema" Margin="10" Padding="20 10" Grid.Row="5" Click="Cinema_Click" >CINEMA</Button>
                 <Grid.Style>
                     <Style>
                         <Style.Resources>
@@ -62,34 +47,7 @@
                     </Style>
                 </Grid.Style>
             </Grid>
-
-            <GroupBox Header="Information" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Margin="10 0" Background="Gainsboro">
-                <Grid x:Name="BasicInfo">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <Label Padding="5" Margin="5">Title:</Label>
-                    <TextBox Grid.Column="1" Margin="5"></TextBox>
-                    <Label Padding="5" Margin="5" Grid.Row="1">Register:</Label>
-                    <TextBox Grid.Column="1" Grid.Row="1" Margin="5"></TextBox>
-                    <Label Padding="5" Margin="5" Grid.Row="2">Cast:</Label>
-                    <TextBox Grid.Column="1" Grid.Row="2" Margin="5"></TextBox>
-                </Grid>
-            </GroupBox>
-            <GroupBox Header="Photo" Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" Margin="10 0" Background="Gainsboro">
-                <Image Name="ImageMovie"></Image>
-            </GroupBox>
-
-            <GroupBox Header="Review" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Margin="10 0" Background="Gainsboro">
-                <Label Padding="20">TU BĘDZIE OPINIA</Label>
-            </GroupBox>
-            
+        <ContentControl Name="Content" Grid.Row="0" Grid.RowSpan="5" Grid.Column="1"></ContentControl>
         </Grid>
     </DockPanel>
 </Window>

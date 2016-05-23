@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using KinomaniakInterfejsPart1wpf.JsonClasses;
 using Newtonsoft.Json;
 
 namespace KinomaniakInterfejsPart1wpf.Classes
@@ -75,6 +76,33 @@ namespace KinomaniakInterfejsPart1wpf.Classes
             return genres;
         }
 
+        public static async Task<List<VideoInformation>> DownloadVideoInformation(int id)
+        {
+            List<VideoInformation> videos = new List<VideoInformation>();
+            System.Net.ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+            var baseAddress = new Uri("http://api.themoviedb.org/3/");
+
+            using (var httpClient = new HttpClient { BaseAddress = baseAddress })
+            {
+                httpClient.DefaultRequestHeaders.TryAddWithoutValidation("accept", "application/json");
+
+
+                using (
+                    var response =
+                        await
+                            httpClient.GetAsync(
+                                "movie/" + id + "/videos?api_key=cdade19d0a427c5bab165ed826c78978")
+                    )
+                {
+                    string responseData = await response.Content.ReadAsStringAsync();
+                    var model = JsonConvert.DeserializeObject<RootObjectVideo>(responseData);
+                    videos = model.results;
+                }
+            }
+            return videos;
+        }
+
     }
 }
 
+//http://api.themoviedb.org/3/movie/157336/videos?api_key=###

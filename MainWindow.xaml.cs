@@ -26,29 +26,43 @@ namespace KinomaniakInterfejsPart1wpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        public List<Movie> Movies { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
-            Movies = FileOperations.GetMovies();
-            //Task.Run(() => DownloadUpcomingMovies()).Wait();
-            new Cinema(TypeOfMovies.AllMovies).Show();
-            this.Close();
         }
 
 
 
         private void MoviesWishes_Click(object sender, RoutedEventArgs e)
         {
-            new Cinema(TypeOfMovies.Wishes).Show();
-            this.Close();
-            
+            Content.Content = new AllMovies(TypeOfMovies.Wishes);
         }
 
         public async void DownloadUpcomingMovies()
         {
-           Movies= await TmdbDownloader.DownloadMovies();
+          // Movies= await TmdbDownloader.DownloadMovies();
+        }
+
+        private void BaseOfAllMovies_OnClick(object sender, RoutedEventArgs e)
+        {
+            Content.Content = new AllMovies(TypeOfMovies.AllMovies);
+        }
+
+        private void MyWatchedMovies_OnClick(object sender, RoutedEventArgs e)
+        {
+            Content.Content = new AllMovies(TypeOfMovies.Wishes);
+
+        }
+
+        private void Cinema_Click(object sender, RoutedEventArgs e)
+        {
+            Content.Content = new Cinema();
+        }
+
+        private void MyCalendar_Click(object sender, RoutedEventArgs e)
+        {
+            Content.Content = new Calendar();
         }
     }
 }

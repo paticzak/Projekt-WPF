@@ -63,6 +63,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="AllMovies.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Calendar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -82,6 +86,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="AllMovies.xaml.cs">
+      <DependentUpon>AllMovies.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Calendar.xaml.cs">
       <DependentUpon>Calendar.xaml</DependentUpon>
     </Compile>
@@ -95,9 +102,14 @@
     <Compile Include="Classes\GenreGrouper.cs" />
     <Compile Include="Classes\Movie.cs" />
     <Compile Include="Classes\FileOperations.cs" />
+    <Compile Include="Classes\TypeOfMovies.cs">
+      <Generator>MSBuild:Compile</Generator>
+    </Compile>
+    <Compile Include="Classes\VideoInformation.cs" />
     <Compile Include="JsonClasses\RootObjectGenres.cs" />
     <Compile Include="Classes\TmdbDownloader.cs" />
     <Compile Include="JsonClasses\RootObjectMovies.cs" />
+    <Compile Include="JsonClasses\RootObjectVideo.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

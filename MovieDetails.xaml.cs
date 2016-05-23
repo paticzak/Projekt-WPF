@@ -21,11 +21,42 @@ namespace KinomaniakInterfejsPart1wpf
     public partial class MovieDetails : Window
     {
         public Movie SelectedMovie { get; set; }
+        public List<VideoInformation> Videos { get; set; }
+
+        //public WebBrowser UrlVideo
+        //{
+        //    get
+        //    {
+        //        return new WebBrowser()
+        //        {
+        //            Source = new Uri("https://www.youtube.com/embed/" + Videos[0].key + "?autoplay=1")
+        //        };
+
+        //    }
+        //}
+
         public MovieDetails(Movie movie)
         {
             InitializeComponent();
-            DataContext = this;
             SelectedMovie = movie;
+            Task.Run(() => DownloadVideoInformation()).Wait();
+            DataContext = this;
+            MovieTrailer.Navigate(new Uri("https://www.youtube.com/embed/" + Videos[0].key + "?autoplay=1"));
+
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            MovieTrailer.Dispose();
+            //MovieTrailer.Source = null;
+            this.Close();
+        }
+
+
+
+        public async Task DownloadVideoInformation()
+        {
+            Videos = await TmdbDownloader.DownloadVideoInformation(SelectedMovie.id);
         }
     }
 }

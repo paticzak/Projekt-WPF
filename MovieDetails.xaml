@@ -27,22 +27,7 @@
 
     </Window.Resources>
     <DockPanel >
-        <ToolBar DockPanel.Dock="Top">
-            <Label>Title</Label>
-            <TextBox MinWidth="80"/>
-            <Button >Filter</Button>
-            <Button >Delete filter</Button>
-            <ComboBox SelectedIndex="0">
-                <ComboBoxItem >Without sort</ComboBoxItem>
-                <ComboBoxItem >Sort in alphabetical order</ComboBoxItem>
-            </ComboBox>
-            <ComboBox SelectedIndex="0">
-                <ComboBoxItem >Whithout group</ComboBoxItem>
-                <ComboBoxItem >Group by director</ComboBoxItem>
-            </ComboBox>
-        </ToolBar>
-
-        <Grid>
+        <Grid Name="MainGrid">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="auto"/>
@@ -57,58 +42,38 @@
                 <ColumnDefinition/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Grid Grid.Row="0" Grid.RowSpan="5" Background="CadetBlue" Margin="5">
-
-                <Grid.RowDefinitions>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-
-                <Button Name="BaseOfAllMovies" Margin="10" Padding="20 10" Grid.Row="0">ALL MOVIES</Button>
-                <Button Name="MyWatchedMovies" Margin="10" Padding="20 10" Grid.Row="1">MY MOVIES</Button>
-                <Button Name="MoviesWishes" Margin="10" Padding="20 10" Grid.Row="2">WISHES</Button>
-                <Button Name="AddMovie" Margin="10" Padding="20 10" Grid.Row="3">ADD MOVIE</Button>
-                <Button Name="MyCalendar" Margin="10" Padding="20 10" Grid.Row="4">CALENDAR</Button>
-                <Button Name="Cinema" Margin="10" Padding="20 10" Grid.Row="5">CINEMA</Button>
-                <Grid.Style>
-                    <Style>
-                        <Style.Resources>
-                            <Style TargetType="Button">
-                                <Setter Property="Background" Value="LightSkyBlue" />
-                                <Setter Property="BorderBrush" Value="Transparent"></Setter>
-                            </Style>
-                        </Style.Resources>
-                    </Style>
-                </Grid.Style>
-            </Grid>
 
             <GroupBox Header="Information" Grid.Column="1" Grid.Row="0" Grid.RowSpan="3" Margin="10 0" Background="Gainsboro">
-                <Grid x:Name="BasicInfo">
+                <Grid x:Name="BasicInfo" >
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition />
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition ></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Label Padding="5" Margin="5">Title:</Label>
-                    <Label Content="{Binding SelectedMovie.original_title}" Grid.Column="1" Margin="5"></Label>
+                    
+                    <Label Padding="5" Margin="5" Grid.Row="0" Grid.Column="1">Title:</Label>
+                    <Label Content="{Binding SelectedMovie.original_title}" Grid.Column="2" Margin="5"></Label>
                     <Label Padding="5" Margin="5" Grid.Row="1">Register:</Label>
-                    <Label Content="{Binding SelectedMovie.release_date}" Grid.Column="1" Grid.Row="1" Margin="5"></Label>
+                    <Label Content="{Binding SelectedMovie.release_date}" HorizontalAlignment="Left"
+                           Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Margin="5"></Label>
                     <Label Padding="5" Margin="5" Grid.Row="2">Storyline:</Label>
-                    <Label Grid.Column="1" Grid.Row="2" Margin="5">
+                    <Label Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Margin="5">
                         <TextBlock Text="{Binding SelectedMovie.overview}" TextWrapping="WrapWithOverflow"></TextBlock>
                     </Label>
+                    <Image Name="ImageMovie" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"
+                           Source="{Binding SelectedMovie.poster_path}"></Image>
+
                 </Grid>
             </GroupBox>
-            <GroupBox Header="Photo" Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" Margin="10 0" Background="Gainsboro">
-                <Image Name="ImageMovie" Source="{Binding SelectedMovie.poster_path}"></Image>
+            <!--<GroupBox Header="Photo" Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" Margin="10 0" Background="Gainsboro">
+            </GroupBox>-->
+            <GroupBox Header="Trailer" Grid.Column="2" Grid.Row="0" Grid.RowSpan="3" Margin="10 0" Background="Gainsboro">
+                <WebBrowser Name="MovieTrailer" Grid.Column="2" Grid.Row="0" Grid.RowSpan="3"></WebBrowser>
             </GroupBox>
 
             <GroupBox Header="Review" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="4" Margin="10 0" Background="Gainsboro">

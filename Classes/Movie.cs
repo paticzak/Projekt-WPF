@@ -21,7 +21,7 @@ namespace KinomaniakInterfejsPart1wpf.Classes
         private string posterPath;
         public string poster_path
         {
-            get { return "https://image.tmdb.org/t/p/original" + posterPath; }
+            get { return "https://image.tmdb.org/t/p/w342" + posterPath; } //  "w92 w154 w185 w342 w500 w780 original dostepne rozmiary
             set
             {
                 if (value != null)
