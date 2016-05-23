@@ -33,7 +33,7 @@ namespace KinomaniakInterfejsPart1wpf
             InitializeComponent();
             Movies = FileOperations.GetMovies();
             //Task.Run(() => DownloadUpcomingMovies()).Wait();
-            new Cinema(Movies).Show();
+            new Cinema(TypeOfMovies.AllMovies).Show();
             this.Close();
         }
 
@@ -41,7 +41,7 @@ namespace KinomaniakInterfejsPart1wpf
 
         private void MoviesWishes_Click(object sender, RoutedEventArgs e)
         {
-            new Cinema(FileOperations.GetMoviesToWatch()).Show();
+            new Cinema(TypeOfMovies.Wishes).Show();
             this.Close();
             
         }

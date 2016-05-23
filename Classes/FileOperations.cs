@@ -40,7 +40,7 @@ namespace KinomaniakInterfejsPart1wpf.Classes
             var responseData =
                    File.ReadAllText(@"C:\Users\Kamil\Desktop\Studia\WPF\Projekt\Projekt-WPF\upcomingMovies.txt");
             var model = JsonConvert.DeserializeObject<RootObjectMovies>(responseData);
-                movies.AddRange(model.results);
+            movies.AddRange(model.results);
             return movies;
         }
 
@@ -56,7 +56,19 @@ namespace KinomaniakInterfejsPart1wpf.Classes
         {
             var movies = GetMoviesWithoutGenres();
             var genres = GetGenres();
-            return GenreConverter.ConvertGenresIdToNames(movies,genres);
+            var deletedMovies = GetDeletedMovies();
+            if (deletedMovies != null)
+            {
+                foreach (Movie deletedMovie in deletedMovies)
+                {
+                    var itemToRemove = movies.SingleOrDefault(r => r.id == deletedMovie.id);
+                    if (itemToRemove != null)
+                    {
+                        movies.Remove(itemToRemove);
+                    }
+                }
+            }
+            return GenreConverter.ConvertGenresIdToNames(movies, genres);
         }
 
         public static List<Genre> GetGenres()
@@ -65,7 +77,7 @@ namespace KinomaniakInterfejsPart1wpf.Classes
                     File.ReadAllText(@"C:\Users\Kamil\Desktop\Studia\WPF\Projekt\Projekt-WPF\genres.txt");
             var model = JsonConvert.DeserializeObject<RootObjectGenres>(responseData);
             return model.genres;
-        } 
+        }
 
         public static List<Movie> GetMoviesToWatch()
         {
@@ -79,23 +91,44 @@ namespace KinomaniakInterfejsPart1wpf.Classes
             {
                 MessageBox.Show("Zła ścieżka");
                 return new List<Movie>();
-            }   
+            }
             var model = JsonConvert.DeserializeObject<List<Movie>>(responseData);
             return model;
         }
 
-        public static bool SaveMovieToWishes(string serializeObject, string path)
+        public static List<Movie> GetDeletedMovies()
+        {
+            string responseData = string.Empty;
+            try
+            {
+                responseData =
+                    File.ReadAllText(@"C:\Users\Kamil\Desktop\Studia\WPF\Projekt\Projekt-WPF\deletedMovies.txt");
+            }
+            catch
+            {
+                MessageBox.Show("Zła ścieżka");
+                return new List<Movie>();
+            }
+            var model = JsonConvert.DeserializeObject<List<Movie>>(responseData);
+            return model;
+        }
+
+        public static bool SaveMovieToFile(string serializeObject, string path)
         {
             try
             {
                 var responseData =
                     File.ReadAllText(path);
+                if (responseData == string.Empty)
+                {
+                    responseData += "[]";
+                }
                 responseData = responseData.Remove(responseData.Length - 1);
                 responseData += serializeObject + "," + "]";
                 File.WriteAllText(path, responseData);
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
                 return false;
             }

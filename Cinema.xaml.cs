@@ -21,9 +21,7 @@ using Newtonsoft.Json;
 
 namespace KinomaniakInterfejsPart1wpf
 {
-    /// <summary>
-    /// Interaction logic for Cinema.xaml
-    /// </summary>
+   public enum TypeOfMovies { Wishes, AllMovies}
     public partial class Cinema : Window, INotifyPropertyChanged
     {
 
@@ -42,10 +40,11 @@ namespace KinomaniakInterfejsPart1wpf
             }
         }
 
-        public Cinema(IEnumerable<Movie> movies)
+        public Cinema(TypeOfMovies type)
         {
             InitializeComponent();
-            if (movies == null) movies = new List<Movie>();
+            List<Movie> movies = new List<Movie>();
+            movies = type == TypeOfMovies.AllMovies ? FileOperations.GetMovies() : FileOperations.GetMoviesToWatch();
             Movies = new ObservableCollection<Movie>(movies);
             MoviesView = CollectionViewSource.GetDefaultView(Movies);
             DataContext = this;
@@ -115,26 +114,32 @@ namespace KinomaniakInterfejsPart1wpf
         {
             var movie = (Movie)ListBoxMovies.SelectedItem;
             var serializeObject = JsonConvert.SerializeObject(movie);
-            FileOperations.SaveMovieToWishes(serializeObject,
+            FileOperations.SaveMovieToFile(serializeObject,
                 @"C:\Users\Kamil\Desktop\Studia\WPF\Projekt\Projekt-WPF\wishesMovies.txt");
         }
 
-        public void DeleteMovieFilter()
+        public void DeleteMovie()
         {
-            Movies.Remove((Movie)ListBoxMovies.SelectedItem);
-            
+            var movie = (Movie)ListBoxMovies.SelectedItem;
+            var serializeObject = JsonConvert.SerializeObject(movie);
+            Movies.Remove(movie);
+            FileOperations.SaveMovieToFile(serializeObject,
+                @"C:\Users\Kamil\Desktop\Studia\WPF\Projekt\Projekt-WPF\deletedMovies.txt");
+
+
         }
+
 
 
         private void MoviesWishes_Click(object sender, RoutedEventArgs e)
         {
-            new Cinema(FileOperations.GetMoviesToWatch()).Show();
+            new Cinema(TypeOfMovies.Wishes).Show();
             this.Close();
         }
 
         private void BaseOfAllMovies_Click(object sender, RoutedEventArgs e)
         {
-            new Cinema(FileOperations.GetMovies()).Show();
+            new Cinema(TypeOfMovies.AllMovies).Show();
             this.Close();
         }
 
@@ -150,7 +155,7 @@ namespace KinomaniakInterfejsPart1wpf
 
         private void DeleteMovieCommandExecute(object sender, ExecutedRoutedEventArgs e)
         {
-            DeleteMovieFilter();
+            DeleteMovie();
         }
 
         private void DeleteMovieCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
