@@ -113,7 +113,7 @@
             </Grid.ColumnDefinitions>
            
 
-            <GroupBox Grid.Column="1" Grid.Row="0"  Grid.ColumnSpan="2" Grid.RowSpan="5" Margin="10 10 10 0" Background="Gainsboro" 
+            <GroupBox Grid.Column="1" Grid.Row="0"  Grid.ColumnSpan="2" Grid.RowSpan="5" Margin="10 10 20 10" Background="Gainsboro" 
                           ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <ListBox Name="ListBoxMovies" ItemsSource="{Binding Movies, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                          SelectionChanged="ListBoxMovies_SelectionChanged"  ItemContainerStyle="{StaticResource ListBoxAnimation}"
@@ -141,7 +141,7 @@
             </GroupBox>
 
 
-            <GroupBox Header="Details" Grid.Column="3" Grid.Row="0" Grid.RowSpan="4" Margin="10 0">
+            <GroupBox Header="Details" Grid.Column="3" Grid.Row="0" Grid.RowSpan="4" Margin="-10 10 10 0">
                 <Grid x:Name="BasicInfo" DataContext="{Binding ElementName=ListBoxMovies,Path=SelectedItem}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto"/>
@@ -156,13 +156,15 @@
                     </Grid.ColumnDefinitions>
 
                     <Label Padding="5" Margin="5">Title:</Label>
-                    <Label Content="{Binding original_title}" Grid.Column="1" Margin="5" Padding="15,0"></Label>
+                    <Label Grid.Column="1" Margin="5" Padding="5">
+                        <TextBlock Text="{Binding original_title}" TextWrapping="Wrap"></TextBlock>
+                    </Label>
                     <Label Padding="5" Margin="5" Grid.Row="1">Language:</Label>
-                    <Label Content="{Binding original_language}"  Grid.Column="1" Grid.Row="1" Margin="5" Padding="45,0"></Label>
+                    <Label Content="{Binding original_language}"  Grid.Column="1" Grid.Row="1" Margin="5" Padding="5"></Label>
                     <Label Padding="5" Margin="5" Grid.Row="2">Vote:</Label>
-                    <Label Content="{Binding vote_average}" Grid.Column="1" Grid.Row="2" Margin="5" Padding="15,0"></Label>
+                    <Label Content="{Binding vote_average}" Grid.Column="1" Grid.Row="2" Margin="5" Padding="5"></Label>
                     <Label Padding="5" Margin="5" Grid.Row="3">Genres:</Label>
-                    <TextBlock Name="TextBlockGenres" Grid.Column="0" Grid.Row="4"  Margin="5" ></TextBlock>
+                    <TextBlock Name="TextBlockGenres" Grid.Column="1" Grid.Row="3" Margin="5" Padding="5"></TextBlock>
                 </Grid>
             </GroupBox>
 
