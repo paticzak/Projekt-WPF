@@ -6,31 +6,38 @@
              xmlns:local="clr-namespace:KinomaniakInterfejsPart1wpf"
              mc:Ignorable="d" 
              d:DesignHeight="420" d:DesignWidth="825">
+﻿  
     <DockPanel>
-       
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="*"/>
-
+                <RowDefinition Height="Auto" MinHeight="230"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
             
-            <GroupBox Header="Calendar" Grid.RowSpan="3" Margin="10" Padding="0 5 0 60">
-                <Calendar HorizontalAlignment="Center"
-                          VerticalAlignment="Center"
-                    <Calendar.RenderTransform>
-                        <ScaleTransform ScaleX="1.3" ScaleY="1.3"></ScaleTransform>
-                    </Calendar.RenderTransform>
-                </Calendar>               
+            <Calendar Padding="10" Margin="10 20"
+                      HorizontalAlignment="Center"
+                      SelectionMode="SingleDate" 
+                      SelectedDate="{Binding ChosenDay}">
+                <Calendar.RenderTransform>
+                    <ScaleTransform ScaleX="1.5" ScaleY="1.5"></ScaleTransform>
+                </Calendar.RenderTransform>
+            </Calendar>
+            
+            <StackPanel Margin="10" Grid.Column="2">
+                <Button Padding="10,3" Margin="90 35 90 0" Click="add_event_Click" Grid.Column="2">Add event...</Button>
+                <Button Padding="10,3" Margin="90 30 90 0"  Grid.Column="2">Edit event...</Button>
+                <Button Padding="10,3" Margin="90 30 90 0"  Grid.Column="2">Delete event...</Button>
+                <Button Padding="10,3" Margin="90 30 90 10"  Grid.Column="2">Show event details...</Button>
+            </StackPanel>
+            
+            <GroupBox Header="Info" Grid.Row="2" Grid.ColumnSpan="2" Margin="20">
+                <Label Name="eventList"></Label>
             </GroupBox>
-
-            <GroupBox Header="Information"  Grid.Row="4" Margin="5 0">
-                <Label></Label>
-            </GroupBox>
-
+            
         </Grid>
     </DockPanel>
 </UserControl>
