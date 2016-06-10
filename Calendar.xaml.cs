@@ -93,7 +93,7 @@ namespace KinomaniakInterfejsPart1wpf
 
         private void ButtonShowDetails_OnClick(object sender, RoutedEventArgs e)
         {
-
+            new EventModelessWindow(SelectedEvent).Show();
         }
     }
 }

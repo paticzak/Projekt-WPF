@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using KinomaniakInterfejsPart1wpf.Annotations;
+using KinomaniakInterfejsPart1wpf.BasicClasses;
 using KinomaniakInterfejsPart1wpf.Classes;
 using Newtonsoft.Json;
 
@@ -27,20 +28,36 @@ namespace KinomaniakInterfejsPart1wpf
     /// </summary>
     public partial class AllMovies : UserControl, INotifyPropertyChanged
     {
-        public AllMovies(TypeOfMovies type)
-        {
-            InitializeComponent();
-            List<Movie> movies = new List<Movie>();
-            movies = type == TypeOfMovies.AllMovies ? FileOperations.GetMovies() : FileOperations.GetMoviesToWatch();
-            Movies = new ObservableCollection<Movie>(movies);
-            MoviesView = CollectionViewSource.GetDefaultView(Movies);
-            DataContext = this;
-        }
-
-
+        private MyList movies = MyList.Instance;
+        private TypeOfMovies type;
         public ICollectionView MoviesView { get; set; }
         public ObservableCollection<Movie> Movies { get; set; }
         private string _titleFilter;
+
+        public AllMovies(TypeOfMovies type)
+        {
+            this.type = type;
+            InitializeComponent();
+            if (MyList.Instance.Count == 0)
+            {
+                var moviesFromFile = FileOperations.GetMovies();
+                movies.AddRange(moviesFromFile);
+            }
+            switch (type)
+            {
+                case TypeOfMovies.AllMovies:
+                    Movies = new ObservableCollection<Movie>(movies);
+                    break;
+                case TypeOfMovies.Wishes:
+                    Movies = new ObservableCollection<Movie>(movies.Where(x => x.wish));
+                    break;
+                case TypeOfMovies.Watched:
+                    Movies = new ObservableCollection<Movie>(movies.Where(x => x.watched));
+                    break;
+            }
+            MoviesView = CollectionViewSource.GetDefaultView(Movies);
+            DataContext = this;
+        }
 
         public string TitleFilter
         {
@@ -66,9 +83,17 @@ namespace KinomaniakInterfejsPart1wpf
             // Brak bindowania, probem z DataContext
         }
 
-        private void ListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void ListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e) 
         {
             new MovieDetails((Movie)ListBoxMovies.SelectedItem).ShowDialog();
+            if (type == TypeOfMovies.Wishes && ((Movie)ListBoxMovies.SelectedItem).wish == false) // Nie wiem jak inaczej usuwac filmy
+            {                                                                                     // po zmianie statusu
+                Movies.RemoveAt(Movies.IndexOf((Movie)ListBoxMovies.SelectedItem));
+            }
+            else if (type == TypeOfMovies.Wishes && ((Movie)ListBoxMovies.SelectedItem).watched == false)
+            {
+                Movies.RemoveAt(Movies.IndexOf((Movie)ListBoxMovies.SelectedItem));
+            }
         }
 
         private void Filter()
@@ -100,7 +125,6 @@ namespace KinomaniakInterfejsPart1wpf
             {
                 View.GroupDescriptions.Clear();
             }
-
         }
 
         private void ComboBoxItemGroupingGenre_OnSelected(object sender, RoutedEventArgs e)
@@ -113,21 +137,25 @@ namespace KinomaniakInterfejsPart1wpf
 
         public void AddToWishes()
         {
-            var movie = (Movie)ListBoxMovies.SelectedItem;
-            var serializeObject = JsonConvert.SerializeObject(movie);
-            FileOperations.SaveMovieToFile(serializeObject,
-                @"C:\Users\Kamil\Desktop\Studia\WPF\Projekt\Projekt-WPF\wishesMovies.txt");
+            ((Movie)ListBoxMovies.SelectedItem).wish = true;
         }
 
         public void DeleteMovie()
         {
-            var movie = (Movie)ListBoxMovies.SelectedItem;
-            var serializeObject = JsonConvert.SerializeObject(movie);
-            Movies.Remove(movie);
-            FileOperations.SaveMovieToFile(serializeObject,
-                @"C:\Users\Kamil\Desktop\Studia\WPF\Projekt\Projekt-WPF\deletedMovies.txt");
-
-
+            if (type == TypeOfMovies.AllMovies)
+            {
+                movies.RemoveAt(movies.IndexOf((Movie)ListBoxMovies.SelectedItem));
+            }
+            else if (type == TypeOfMovies.Wishes)
+            {
+                ((Movie)ListBoxMovies.SelectedItem).wish = false;
+                Movies.RemoveAt(Movies.IndexOf((Movie)ListBoxMovies.SelectedItem));
+            }
+            else if (type == TypeOfMovies.Watched)
+            {
+                ((Movie)ListBoxMovies.SelectedItem).watched = false;
+                Movies.RemoveAt(Movies.IndexOf((Movie)ListBoxMovies.SelectedItem));
+            }
         }
 
         private void AddToWishesCommandExecute(object sender, ExecutedRoutedEventArgs e)
@@ -158,10 +186,6 @@ namespace KinomaniakInterfejsPart1wpf
             PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void ButtonCinema_Click(object sender, RoutedEventArgs e)
-        {
-            new ActualRepertuar().Show();
-        }
     }
 }
 

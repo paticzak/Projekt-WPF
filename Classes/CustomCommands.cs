@@ -11,6 +11,8 @@ namespace KinomaniakInterfejsPart1wpf.Classes
     {
         public static readonly RoutedUICommand AddToWishes = new RoutedUICommand();
         public static readonly RoutedUICommand DeleteMovie = new RoutedUICommand();
+        public static readonly RoutedUICommand Save = new RoutedUICommand();
+
 
     }
 }

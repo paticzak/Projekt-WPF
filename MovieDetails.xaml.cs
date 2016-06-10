@@ -23,18 +23,6 @@ namespace KinomaniakInterfejsPart1wpf
         public Movie SelectedMovie { get; set; }
         public List<VideoInformation> Videos { get; set; }
 
-        //public WebBrowser UrlVideo
-        //{
-        //    get
-        //    {
-        //        return new WebBrowser()
-        //        {
-        //            Source = new Uri("https://www.youtube.com/embed/" + Videos[0].key + "?autoplay=1")
-        //        };
-
-        //    }
-        //}
-
         public MovieDetails(Movie movie)
         {
             InitializeComponent();
@@ -48,20 +36,23 @@ namespace KinomaniakInterfejsPart1wpf
         protected override void OnClosed(EventArgs e)
         {
             MovieTrailer.Dispose();
-            //MovieTrailer.Source = null;
             this.Close();
         }
-
-
 
         public async Task DownloadVideoInformation()
         {
             Videos = await TmdbDownloader.DownloadVideoInformation(SelectedMovie.id);
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+
+        private void SaveCommandOnExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            
+            Close();
+        }
+
+        private void SaveCommandOnCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
         }
     }
 }

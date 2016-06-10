@@ -32,8 +32,6 @@ namespace KinomaniakInterfejsPart1wpf
             InitializeComponent();
         }
 
-
-
         private void MoviesWishes_Click(object sender, RoutedEventArgs e)
         {
             Content.Content = new AllMovies(TypeOfMovies.Wishes);
@@ -51,8 +49,7 @@ namespace KinomaniakInterfejsPart1wpf
 
         private void MyWatchedMovies_OnClick(object sender, RoutedEventArgs e)
         {
-            Content.Content = new AllMovies(TypeOfMovies.Wishes);
-
+            Content.Content = new AllMovies(TypeOfMovies.Watched);
         }
 
         private void Cinema_Click(object sender, RoutedEventArgs e)

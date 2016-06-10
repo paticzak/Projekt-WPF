@@ -23,7 +23,7 @@ namespace KinomaniakInterfejsPart1wpf
     public partial class EventModalWindow : Window, INotifyPropertyChanged
     {
         public DateTime Date { get; set; }
-
+     
         private string eventName;
 
         public string EventName
