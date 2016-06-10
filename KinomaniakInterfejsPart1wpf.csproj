@@ -75,6 +75,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="EventModalWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EventModelessWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -96,6 +104,7 @@
       <DependentUpon>Cinema.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\CustomCommands.cs" />
+    <Compile Include="Classes\Event.cs" />
     <Compile Include="Classes\Genre.cs" />
     <Compile Include="Classes\GenreConverter.cs" />
     <Compile Include="Classes\FirstLetterConverter.cs" />
@@ -106,6 +115,12 @@
       <Generator>MSBuild:Compile</Generator>
     </Compile>
     <Compile Include="Classes\VideoInformation.cs" />
+    <Compile Include="EventModalWindow.xaml.cs">
+      <DependentUpon>EventModalWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EventModelessWindow.xaml.cs">
+      <DependentUpon>EventModelessWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="JsonClasses\RootObjectGenres.cs" />
     <Compile Include="Classes\TmdbDownloader.cs" />
     <Compile Include="JsonClasses\RootObjectMovies.cs" />

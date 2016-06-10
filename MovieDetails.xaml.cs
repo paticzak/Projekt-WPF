@@ -58,5 +58,10 @@ namespace KinomaniakInterfejsPart1wpf
         {
             Videos = await TmdbDownloader.DownloadVideoInformation(SelectedMovie.id);
         }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

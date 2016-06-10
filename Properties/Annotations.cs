@@ -142,7 +142,7 @@ namespace KinomaniakInterfejsPart1wpf.Annotations
   ///
   ///   string _name;
   /// 
-  ///   public string Name {
+  ///   public string eventName {
   ///     get { return _name; }
   ///     set { _name = value; NotifyChanged("LastName"); /* Warning */ }
   ///   }

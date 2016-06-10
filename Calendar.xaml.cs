@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,49 +14,86 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using KinomaniakInterfejsPart1wpf.Annotations;
 
 namespace KinomaniakInterfejsPart1wpf
 {
     /// <summary>
     /// Interaction logic for Calendar.xaml
     /// </summary>
-    public partial class Calendar : UserControl
+    public partial class Calendar : UserControl, INotifyPropertyChanged
     {
-        public DateTime ChosenDay { get; set; }
+        private List<Event> Events = new List<Event>();
+
+        private DateTime chosenDay;
+
+        public DateTime ChosenDay
+        {
+            get { return chosenDay; }
+            set
+            {
+                chosenDay = value;
+                OnPropertyChanged(nameof(SelectedEvent));
+            }
+        }
+
+        public Event SelectedEvent
+        {
+            get { return Events.FirstOrDefault(x => x.eventDate == ChosenDay); }
+            set
+            {
+                Events[Events.IndexOf(SelectedEvent)] = value;
+                OnPropertyChanged(nameof(SelectedEvent));
+            }
+        }
+
         public Calendar()
         {
             InitializeComponent();
             this.DataContext = this;
         }
 
-        //wyświetlało komunikat do konkretnego dnia, tylko wiadomośc zawsze taka sama, zmienia się jedynie data
-        //private void Chosen_Day_Click(object sender, System.Windows.RoutedEventArgs e)
-        //{
-        //    string msg;
- 
-        //    if (ChosenDay == null)
-        //        msg = "Choose a day.";
-        //    else
-        //        msg = string.Format("My favorite day is {0:D}",ChosenDay");
- 
-        //    MessageBox.Show(msg);
-        //}
-
         private void add_event_Click(object sender, RoutedEventArgs e)
         {
             EventModalWindow eventt = new EventModalWindow();
-            eventt.Occasion = new Event();
-            if(eventt.ShowDialog() == true)
-            {                 
-                Event happening = new Event();
-                if (ChosenDay != null)
-                {
-                    happening.eventName = string.Format("My favorite day is {0:D}", ChosenDay); // nic nie wyświetla
-                }
-                happening.eventName = eventt.Occasion.eventName;
-                happening.eventPlace = eventt.Occasion.eventPlace;
-                //eventList.Items.Add(happening); // wyrzuca błąd :(
+            if (eventt.ShowDialog() == true)
+            {
+                Events.Add(new Event(ChosenDay, eventt.EventName, eventt.Place));
+                OnPropertyChanged(nameof(SelectedEvent));
             }
+        }
+
+        private void ButtonEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedEvent == null) return;
+            EventModalWindow eventt = new EventModalWindow(SelectedEvent);
+            if (eventt.ShowDialog() == true)
+            {
+                SelectedEvent = new Event(eventt.Date, eventt.EventName, eventt.Place);        
+            }
+            
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (Events.Contains(SelectedEvent))
+            {
+                Events.RemoveAt(Events.IndexOf(SelectedEvent));
+                OnPropertyChanged(nameof(SelectedEvent));
+            }
+        }
+
+        private void ButtonShowDetails_OnClick(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
