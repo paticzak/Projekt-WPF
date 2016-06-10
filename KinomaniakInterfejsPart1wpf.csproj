@@ -59,27 +59,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="ActualRepertuar.xaml">
+    <Page Include="Windows\ActualRepertuar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AllMovies.xaml">
+    <Page Include="Windows\AllMovies.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Calendar.xaml">
+    <Page Include="Windows\Calendar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Cinema.xaml">
+    <Page Include="Windows\Cinema.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EventModalWindow.xaml">
+    <Page Include="Windows\EventModalWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EventModelessWindow.xaml">
+    <Page Include="Windows\EventModelessWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -87,21 +87,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="ActualRepertuar.xaml.cs">
+    <Compile Include="Windows\ActualRepertuar.xaml.cs">
       <DependentUpon>ActualRepertuar.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AllMovies.xaml.cs">
+    <Compile Include="Windows\AllMovies.xaml.cs">
       <DependentUpon>AllMovies.xaml</DependentUpon>
     </Compile>
     <Compile Include="BasicClasses\MyList.cs" />
-    <Compile Include="Calendar.xaml.cs">
+    <Compile Include="Windows\Calendar.xaml.cs">
       <DependentUpon>Calendar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Cinema.xaml.cs">
+    <Compile Include="Windows\Cinema.xaml.cs">
       <DependentUpon>Cinema.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\CustomCommands.cs" />
@@ -116,10 +116,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Compile>
     <Compile Include="BasicClasses\VideoInformation.cs" />
-    <Compile Include="EventModalWindow.xaml.cs">
+    <Compile Include="Windows\EventModalWindow.xaml.cs">
       <DependentUpon>EventModalWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EventModelessWindow.xaml.cs">
+    <Compile Include="Windows\EventModelessWindow.xaml.cs">
       <DependentUpon>EventModelessWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="JsonClasses\RootObjectGenres.cs" />
@@ -130,13 +130,13 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MovieDetails.xaml">
+    <Page Include="Windows\MovieDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MovieDetails.xaml.cs">
+    <Compile Include="Windows\MovieDetails.xaml.cs">
       <DependentUpon>MovieDetails.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\Annotations.cs" />
