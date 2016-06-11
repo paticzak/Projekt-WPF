@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -31,35 +32,23 @@ namespace KinomaniakInterfejsPart1wpf
         {
             InitializeComponent();
         }
-
-        private void MoviesWishes_Click(object sender, RoutedEventArgs e)
+        private void ChangeContentCommandExecute(object sender, ExecutedRoutedEventArgs e)
         {
-            Content.Content = new AllMovies(TypeOfMovies.Wishes);
+            if (e.Parameter.Equals("Cinema"))
+                Content.Content = new Cinema();
+            else if (e.Parameter.Equals("AllMovies"))
+                Content.Content = new AllMovies(TypeOfMovies.AllMovies);
+            else if (e.Parameter.Equals("WatchedMovies"))
+                Content.Content = new AllMovies(TypeOfMovies.Watched);
+            else if (e.Parameter.Equals("Wishes"))
+                Content.Content = new AllMovies(TypeOfMovies.Wishes);
+            else if (e.Parameter.Equals("Calendar"))
+                Content.Content = new Calendar();
         }
 
-        public async void DownloadUpcomingMovies()
+        private void ChangeContentCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-          // Movies= await TmdbDownloader.DownloadMovies();
-        }
-
-        private void BaseOfAllMovies_OnClick(object sender, RoutedEventArgs e)
-        {
-            Content.Content = new AllMovies(TypeOfMovies.AllMovies);
-        }
-
-        private void MyWatchedMovies_OnClick(object sender, RoutedEventArgs e)
-        {
-            Content.Content = new AllMovies(TypeOfMovies.Watched);
-        }
-
-        private void Cinema_Click(object sender, RoutedEventArgs e)
-        {
-            Content.Content = new Cinema();
-        }
-
-        private void MyCalendar_Click(object sender, RoutedEventArgs e)
-        {
-            Content.Content = new Calendar();
+            e.CanExecute = true;
         }
     }
 }

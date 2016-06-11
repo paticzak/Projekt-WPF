@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using KinomaniakInterfejsPart1wpf.Annotations;
+using KinomaniakInterfejsPart1wpf.Classes;
 
 namespace KinomaniakInterfejsPart1wpf
 {
@@ -55,17 +56,22 @@ namespace KinomaniakInterfejsPart1wpf
             DataContext = this;
         }
 
-        private void ButtonClose_OnClick(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void CloseOnCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void CloseOnExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

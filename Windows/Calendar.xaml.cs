@@ -21,7 +21,7 @@ namespace KinomaniakInterfejsPart1wpf
     /// <summary>
     /// Interaction logic for Calendar.xaml
     /// </summary>
-    public partial class Calendar : UserControl, INotifyPropertyChanged
+    public partial class Calendar : INotifyPropertyChanged
     {
         private List<Event> Events = new List<Event>();
 
@@ -53,7 +53,7 @@ namespace KinomaniakInterfejsPart1wpf
             this.DataContext = this;
         }
 
-        private void add_event_Click(object sender, RoutedEventArgs e)
+        private void AddOn_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             EventModalWindow eventt = new EventModalWindow();
             if (eventt.ShowDialog() == true)
@@ -63,15 +63,34 @@ namespace KinomaniakInterfejsPart1wpf
             }
         }
 
-        private void ButtonEdit_Click(object sender, RoutedEventArgs e)
+        private void EditOnExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            if (SelectedEvent == null) return;
             EventModalWindow eventt = new EventModalWindow(SelectedEvent);
             if (eventt.ShowDialog() == true)
             {
-                SelectedEvent = new Event(eventt.Date, eventt.EventName, eventt.Place);        
+                SelectedEvent = new Event(eventt.Date, eventt.EventName, eventt.Place);
             }
-            
+        }
+
+        private void DeleteOnExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            Events.RemoveAt(Events.IndexOf(SelectedEvent));
+            OnPropertyChanged(nameof(SelectedEvent));
+        }
+
+        private void ShowDetailsOnExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            new EventModelessWindow(SelectedEvent).Show();
+        }
+
+        private void AddOnCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void EditDeleteDetailsOnCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = SelectedEvent != null;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -82,18 +101,6 @@ namespace KinomaniakInterfejsPart1wpf
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (Events.Contains(SelectedEvent))
-            {
-                Events.RemoveAt(Events.IndexOf(SelectedEvent));
-                OnPropertyChanged(nameof(SelectedEvent));
-            }
-        }
-
-        private void ButtonShowDetails_OnClick(object sender, RoutedEventArgs e)
-        {
-            new EventModelessWindow(SelectedEvent).Show();
-        }
+       
     }
 }

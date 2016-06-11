@@ -9,10 +9,14 @@ namespace KinomaniakInterfejsPart1wpf.Classes
 {
     public static class CustomCommands
     {
-        public static readonly RoutedUICommand AddToWishes = new RoutedUICommand();
-        public static readonly RoutedUICommand DeleteMovie = new RoutedUICommand();
+        public static readonly RoutedUICommand Add = new RoutedUICommand();
+        public static readonly RoutedUICommand Delete = new RoutedUICommand();
+        public static readonly RoutedUICommand Edit = new RoutedUICommand();
+        public static readonly RoutedUICommand ShowDetails = new RoutedUICommand();
+        public static readonly RoutedUICommand ChangeContent = new RoutedUICommand();
+        public static readonly RoutedUICommand Close = new RoutedUICommand();
         public static readonly RoutedUICommand Save = new RoutedUICommand();
-
 
     }
 }
+

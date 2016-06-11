@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -63,19 +64,34 @@ namespace KinomaniakInterfejsPart1wpf
             DataContext = this;
         }
 
-        private void OK_Click(object sender, RoutedEventArgs e)
-        {
-            DialogResult = true;
-            Close();
-        }
-
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void CloseOn_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            DialogResult = false;
+            Close();
+        }
+
+        private void CloseOnCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void SaveOnExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            DialogResult = true;
+            Close();
+        }
+
+        private void SaveOnCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
         }
     }
 }

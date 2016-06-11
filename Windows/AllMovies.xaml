@@ -8,9 +8,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="480" d:DesignWidth="825">
     <UserControl.CommandBindings>
-        <CommandBinding Command="classes:CustomCommands.AddToWishes" Executed="AddToWishesCommandExecute"
+        <CommandBinding Command="classes:CustomCommands.Add" Executed="AddToWishesCommandExecute"
                         CanExecute="AddToWishesCommandCanExecute"></CommandBinding>
-        <CommandBinding Command="classes:CustomCommands.DeleteMovie" Executed="DeleteMovieCommandExecute"
+        <CommandBinding Command="classes:CustomCommands.Delete" Executed="DeleteMovieCommandExecute"
                         CanExecute="DeleteMovieCommandCanExecute"></CommandBinding>
     </UserControl.CommandBindings>
     
@@ -132,8 +132,8 @@
                     </ListBox.GroupStyle>
                     <ListBox.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Name="MenuItemWishes" Header="Add to wishes" Command="classes:CustomCommands.AddToWishes" ></MenuItem>
-                            <MenuItem Name="MenuItemDelete" Header="Delete" Command="classes:CustomCommands.DeleteMovie"></MenuItem>
+                            <MenuItem Name="MenuItemWishes" Header="Add to wishes" Command="classes:CustomCommands.Add" ></MenuItem>
+                            <MenuItem Name="MenuItemDelete" Header="Delete" Command="classes:CustomCommands.Delete"></MenuItem>
                         </ContextMenu>
                     </ListBox.ContextMenu>
 

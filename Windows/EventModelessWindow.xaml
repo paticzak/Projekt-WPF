@@ -4,8 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KinomaniakInterfejsPart1wpf"
+        xmlns:classes="clr-namespace:KinomaniakInterfejsPart1wpf.Classes"
         mc:Ignorable="d"
         Title="EventModelessWindow" SizeToContent="Height" Width="300">
+    <Window.CommandBindings>
+        <CommandBinding Command="classes:CustomCommands.Close" Executed="CloseOnExecuted"
+                        CanExecute="CloseOnCanExecute"></CommandBinding>
+    </Window.CommandBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -28,7 +33,7 @@
             </Grid.ColumnDefinitions>
 
             <Button Name="ButtonClose" Grid.Column="1" Margin="5"  Padding="20 5" IsDefault="True"
-                    Click="ButtonClose_OnClick" >Close</Button>
+                    Command="classes:CustomCommands.Close" >Close</Button>
         </Grid>
 
     </Grid>
