@@ -16,6 +16,7 @@ namespace KinomaniakInterfejsPart1wpf.Classes
         public static readonly RoutedUICommand ChangeContent = new RoutedUICommand();
         public static readonly RoutedUICommand Close = new RoutedUICommand();
         public static readonly RoutedUICommand Save = new RoutedUICommand();
+        public static readonly RoutedUICommand Print = new RoutedUICommand();
 
     }
 }

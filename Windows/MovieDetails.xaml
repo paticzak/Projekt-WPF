@@ -12,6 +12,8 @@
     <Window.CommandBindings>
         <CommandBinding Command="classes:CustomCommands.Save" Executed="SaveCommandOnExecuted"
                         CanExecute="SaveCommandOnCanExecute"></CommandBinding>
+        <CommandBinding Command="classes:CustomCommands.Print" Executed="PrintCommandOnExecuted"
+                        CanExecute="PrintCommandOnCanExecute"></CommandBinding>
     </Window.CommandBindings>
     <Window.Resources>
         <LinearGradientBrush x:Key="GrayBlueGardientBrush"  
@@ -96,9 +98,16 @@
                 <TextBox Height="70" Padding="5" Margin="5 0" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto"
                          Text="{Binding SelectedMovie.review, Mode=TwoWay}"></TextBox>
             </GroupBox>
-            <Button Name="SaveReview" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0 5 10 10"
+            <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" 
+                        HorizontalAlignment="Right" Margin="0 5 10 10">
+                <Button Name="PrintButton" HorizontalAlignment="Right" Margin="0 5 10 10"
+                    Command="classes:CustomCommands.Print" Padding="10" FontSize="13"
+                    HorizontalContentAlignment="Right">Print</Button>
+                <Button Name="SaveReview" HorizontalAlignment="Right" Margin="0 5 10 10"
                     Command="classes:CustomCommands.Save" Padding="10" FontSize="13"
                     HorizontalContentAlignment="Right">Save</Button>
+            </StackPanel>
+        
 
         </Grid>
     </DockPanel>

@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
+using System.Printing;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Windows.Xps.Packaging;
 using KinomaniakInterfejsPart1wpf.Classes;
 
 namespace KinomaniakInterfejsPart1wpf
@@ -53,6 +51,40 @@ namespace KinomaniakInterfejsPart1wpf
         private void SaveCommandOnCanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
+        }
+
+        private void PrintCommandOnExecuted(object sender, ExecutedRoutedEventArgs e)
+        {
+            Print();
+        }
+
+        private void PrintCommandOnCanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void Print()
+        {
+            var xMargin = 0;
+            var yMargin = 0;
+            PrintDialog printDlg = new PrintDialog();
+
+            PrintTicket pt = printDlg.PrintTicket;
+            Double printableWidth = pt.PageMediaSize.Width.Value;
+            Double printableHeight = pt.PageMediaSize.Height.Value;
+
+            Double xScale = (printableWidth - xMargin * 2) / printableWidth;
+            Double yScale = (printableHeight - yMargin * 2) / printableHeight;
+
+
+            this.LayoutTransform = new MatrixTransform(xScale, 0, 0, yScale, xMargin, yMargin);
+
+            Nullable<Boolean> print = printDlg.ShowDialog();
+            if (print == true)
+            {
+                //now print the visual to printer to fit on the one page.
+                printDlg.PrintVisual(this, "Print Page");
+            }
         }
     }
 }

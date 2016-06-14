@@ -33,7 +33,7 @@ namespace KinomaniakInterfejsPart1wpf
             set
             {
                 chosenDay = value;
-                OnPropertyChanged(nameof(SelectedEvent));
+                OnPropertyChanged("SelectedEvent");
             }
         }
 
@@ -43,7 +43,7 @@ namespace KinomaniakInterfejsPart1wpf
             set
             {
                 Events[Events.IndexOf(SelectedEvent)] = value;
-                OnPropertyChanged(nameof(SelectedEvent));
+                OnPropertyChanged("SelectedEvento");
             }
         }
 
@@ -59,7 +59,8 @@ namespace KinomaniakInterfejsPart1wpf
             if (eventt.ShowDialog() == true)
             {
                 Events.Add(new Event(ChosenDay, eventt.EventName, eventt.Place));
-                OnPropertyChanged(nameof(SelectedEvent));
+                OnPropertyChanged("SelectedEvent");
+
             }
         }
 
@@ -75,7 +76,7 @@ namespace KinomaniakInterfejsPart1wpf
         private void DeleteOnExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             Events.RemoveAt(Events.IndexOf(SelectedEvent));
-            OnPropertyChanged(nameof(SelectedEvent));
+            OnPropertyChanged("SelectedEvent");
         }
 
         private void ShowDetailsOnExecuted(object sender, ExecutedRoutedEventArgs e)
