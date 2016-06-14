@@ -7,7 +7,7 @@
         xmlns:classes="clr-namespace:KinomaniakInterfejsPart1wpf.Classes"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="MovieDetails" Height="600" Width="825">
+        Title="MovieDetails" Height="650" Width="825">
 
     <Window.CommandBindings>
         <CommandBinding Command="classes:CustomCommands.Save" Executed="SaveCommandOnExecuted"
