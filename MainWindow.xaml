@@ -57,7 +57,12 @@
                     </Style>
                 </Grid.Style>
             </Grid>
-        <ContentControl Name="Content" Grid.Row="0" Grid.RowSpan="5" Grid.Column="1"></ContentControl>
+        <ContentControl Name="Content" Grid.Row="0" Grid.RowSpan="5" Grid.Column="1">
+                <Image Source="https://gyazo.com/61ef778559233c4bb679eac203f36e34.png" 
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Height="250"/>
+        </ContentControl>
         </Grid>
     </DockPanel>
 </Window>
